@@ -4,17 +4,11 @@ import {useSelector} from "react-redux";
 
 const StatusField = () => {
 
-  const {record, shot, hit, dead } = useSelector(state => state.status)
+  const { shot, hit, dead } = useSelector(state => state.status)
 
   return (
     <div className={ s.battle__statusField}>
       <ul>
-        <li className={ s.battle__statusField__list }>
-          <span>Рекорд:</span>
-          <span id="record">
-            {record}
-          </span>
-        </li>
         <li className={ s.battle__statusField__list }>
           <span>Выстрелов:</span>
           <span id="shot">

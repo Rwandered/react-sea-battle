@@ -13,9 +13,8 @@ const Field = ({ isPc }) => {
               {
                 elem.map( (cell, cellIndex) => (
                   <Cell
-                    key={cellIndex}
-                    xCor={index}
-                    yCor={ cellIndex}
+                    key={''+index+cellIndex}
+                    cellId={index+ '' + cellIndex}
                     isPc={isPc}
                   />
                 ))
@@ -27,4 +26,4 @@ const Field = ({ isPc }) => {
   )
 }
 
-export default Field
+export default React.memo(Field)

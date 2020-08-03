@@ -1,13 +1,11 @@
 import {SET_STATUS} from "../actions/actionTypes";
 
 const initialState = {
-  record: 0,
   shot: 0,
   hit: 0,
   dead: 0
 }
 const statusReducer = ( state= initialState, { type, payload } ) => {
-
   let num = state[payload]
   num++
   switch (type) {
