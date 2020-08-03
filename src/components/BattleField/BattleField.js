@@ -1,0 +1,26 @@
+import React from "react";
+import PropTypes from 'prop-types';
+import Field from "../Field/Field";
+import s from './BattleField.module.scss';
+
+
+const BattleField = ( { nickname, isPc } ) => {
+
+  return (
+    <div className={ s.battleField__body }>
+      <p className={ s.battleField__nickname}> { nickname } </p>
+      <table className={ s.battleField__body__enemy }>
+        <tbody>
+          <Field isPc={isPc}/>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+BattleField.proptype = {
+  nickname: PropTypes.string.isRequired
+}
+
+export default BattleField
+

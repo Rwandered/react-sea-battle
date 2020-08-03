@@ -1,0 +1,25 @@
+.seaBattle__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .seaBattle__footer {
+    display: flex;
+  }
+}
+
+.battle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &:first-child {
+    margin-right: 30px;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

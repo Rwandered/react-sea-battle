@@ -1,0 +1,24 @@
+.battleField__body {
+  margin: 10px;
+
+
+  &__enemy {
+    border-collapse: collapse;
+    background-color: #ccc;
+  }
+
+  td {
+    border: 3px solid black;
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+.battleField__shield {
+  //margin: -10px;
+  z-index: 1000;
+}
+
+
