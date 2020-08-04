@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {changeHeader, setHit, setStatus} from "../../redux/actions/actionCreators";
 import cn from "classnames";
 import s from './Cell.module.scss'
 
 const Cell = ( { isPc, cellId }) => {
+
+  console.log('CELL')
 
   const [isMiss, setMiss] = useState(false)
   const dispatch = useDispatch()
@@ -25,6 +27,11 @@ const Cell = ( { isPc, cellId }) => {
       return ship && ship.dead
   })
 
+  useEffect(() => {
+    if(shipCount === 0) {
+      dispatch(changeHeader('Game end!'))
+    }
+  }, [shipCount])
 
 
   const handleCellClick = (event) => {
@@ -39,11 +46,9 @@ const Cell = ( { isPc, cellId }) => {
       setMiss(!isMiss)
       dispatch( setStatus('shot') )
       dispatch( setHit(ships, shipCount, cellId) )
-      if(shipCount === 1) {
-        return dispatch(changeHeader('Game end!'))
-      }
     }
   }
+
 
   return (
     <td

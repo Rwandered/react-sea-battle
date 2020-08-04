@@ -1,5 +1,5 @@
 import {
-  CHANGE_HEADER,
+  CHANGE_HEADER, RESET_GAME, RESET_STATUS,
   SET_AUTH, SET_GAME,
   SET_OPPONENT, SET_SHOT, SET_SHOT_MINUS_COUNT,
   SET_STATUS,
@@ -73,10 +73,23 @@ export const setGame = (gameOptions) => {
   }
 }
 
+export const resetGame = () => {
+  return {
+    type: RESET_GAME
+  }
+}
+
+export const resetStatus = () => {
+  return {
+    type: RESET_STATUS
+  }
+}
+
 
 export const setHit = ( ships , shipCount, id ) => {
 
   return (dispatch) => {
+    console.log('shipCount: ', shipCount)
     const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива
     const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // нужный индекс объекта из массива
 

@@ -7,8 +7,6 @@ import './index.scss';
 import 'normalize.css';
 
 
-
-
 ReactDOM.render(
   <Provider store={store}>
     <App/>

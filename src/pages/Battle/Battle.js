@@ -4,25 +4,26 @@ import BattleField from "../../components/BattleField/BattleField";
 import StatusField from "../../components/StatusField/StatusField";
 import Control from "../../components/Contol/Control";
 import {useDispatch, useSelector} from "react-redux";
-import {gameOptions, generateShips} from "../../utils/game";
-import s from './Battle.module.scss'
+import {gameOptions} from "../../utils/game";
 import {setGame} from "../../redux/actions/actionCreators";
+import s from './Battle.module.scss'
+
 
 const Battle = () => {
 
   const { userName, pcName} = useSelector( state => state.auth)
-  const { ships, shipCount}  = useSelector(state => state.game)
-  console.log('ships: ', shipCount)
+  const { ships }  = useSelector(state => state.game)
   const dispatch = useDispatch()
 
 
   useEffect(() => {
-    const ships = generateShips(gameOptions)
-    console.log('useEffect ships: ', ships)
+    // const ships = generateShips(gameOptions)
+    const ships = gameOptions.generateShips()
+    console.log('ships: ', ships)
     ships && dispatch( setGame({ships: ships, shipCount: ships.length}))
   }, [])
 
-  if(shipCount === 0) {
+  if(!ships.length) {
     return <h1>Идет расстановка кораблей....</h1>
   }
 

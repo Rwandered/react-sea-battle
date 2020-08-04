@@ -3,19 +3,28 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import s from './Control.module.scss'
 import {useHistory} from "react-router";
+import {useDispatch} from "react-redux";
+import {changeHeader, resetGame, resetStatus} from "../../redux/actions/actionCreators";
 
 const Control = ( { value, type = 'button', target } ) => {
 
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const handleControlClick = (event) => {
-
     const { id } = event.target.dataset
     switch (id){
       case 'exit':
+        dispatch( resetGame() )
+        dispatch( resetStatus() )
+        dispatch ( changeHeader(''))
         return history.push('/auth')
       case 'restart':
+        // dispatch( resetGame() )
+        // dispatch( resetStatus() )
         return history.push('/')
+      default:
+        return history.push('/auth')
     }
   }
 

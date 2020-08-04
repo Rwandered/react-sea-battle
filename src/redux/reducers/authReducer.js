@@ -11,10 +11,7 @@ const authReducer = (state= initState, action) => {
 
   switch (type) {
     case SET_USER:
-      return {
-        ...state,
-        userName: payload
-      }
+      return { ...state, userName: payload }
     case SET_OPPONENT:
       return {
         ...state,
