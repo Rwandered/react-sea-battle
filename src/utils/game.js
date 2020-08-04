@@ -1,6 +1,6 @@
 export const gameOptions = {
-  shipCount: [1,2, 0, 0],
-  shipSize:[4,3, 2, 1],
+  shipCount: [1, 0, 0, 0],
+  shipSize:[4, 3, 2, 1],
   privateLocation: [],
   generateShips() {
     const ships = []
@@ -11,6 +11,7 @@ export const gameOptions = {
         ships.push(ship)
       }
     })
+    // console.log('ships: ', ships)
     return ships
   },
   generateShipOptions(shipSize) {
@@ -41,7 +42,6 @@ export const gameOptions = {
     }
 
     // if(this.checkPrivateLocation(ship.location)) {
-    //   console.log('shipSize: ', shipSize)
     //   return this.generateShipOptions(shipSize)
     // }
     //
@@ -72,7 +72,7 @@ export const gameOptions = {
       }
     }
     }
-  }
+  },
 }
 
 
@@ -154,11 +154,6 @@ export const gameOptions = {
 //     }
 //   }
 // }
-
-
-
-
-
 
 // ships: [
 //   {

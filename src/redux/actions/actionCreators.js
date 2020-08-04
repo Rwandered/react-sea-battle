@@ -1,7 +1,7 @@
 import {
-  CHANGE_HEADER, RESET_GAME, RESET_STATUS,
-  SET_AUTH, SET_GAME,
-  SET_OPPONENT, SET_SHOT, SET_SHOT_MINUS_COUNT,
+  CHANGE_HEADER, RESET_GAME, RESET_PC, RESET_STATUS,
+  SET_AUTH, SET_FOLLOWING, SET_GAME,
+  SET_OPPONENT, SET_PC_SETTINGS, SET_PC_SHOT, SET_SHOT, SET_SHOT_MINUS_COUNT,
   SET_STATUS,
   SET_USER
 } from "./actionTypes";
@@ -85,11 +85,17 @@ export const resetStatus = () => {
   }
 }
 
+export const setFollowing = (howIsFollowing) => {
+  return {
+    type: SET_FOLLOWING,
+    payload: howIsFollowing
+  }
+}
 
 export const setHit = ( ships , shipCount, id ) => {
 
   return (dispatch) => {
-    console.log('shipCount: ', shipCount)
+    // console.log('shipCount: ', shipCount)
     const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива
     const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // нужный индекс объекта из массива
 
@@ -116,6 +122,10 @@ export const setHit = ( ships , shipCount, id ) => {
           dispatch( setShotMinusCount() )
         }
       }
+      return true
+    } else {
+
     }
+    return false
   }
 }

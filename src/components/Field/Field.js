@@ -3,7 +3,8 @@ import {field} from "../../constants/constants";
 import Cell from "../Cell/Cell";
 
 
-const Field = ({ isPc }) => {
+
+const Field = ({ computerShips }) => {
 
   return (
     <>
@@ -15,7 +16,7 @@ const Field = ({ isPc }) => {
                   <Cell
                     key={''+index+cellIndex}
                     cellId={index+ '' + cellIndex}
-                    isPc={isPc}
+                    computerShips={computerShips}
                   />
                 ))
               }

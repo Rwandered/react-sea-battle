@@ -1,0 +1,8 @@
+export const SET_PC_SETTINGS = 'SET_PC_SETTINGS'
+export const RESET_PC = 'RESET_PC'
+export const SET_PC_SHOT = 'SET_PC_SHOT'
+export const SET_PC_SHOT_MISS = 'SET_PC_SHOT_MISS'
+export const SET_PC_SHIP_MINUS_COUNT = 'SET_PC_SHIP_MINUS_COUNT'
+export const SET_PC_SHOT_DEAD = 'SET_PC_SHOT_DEAD'
+export const SET_ID = 'SET_ID'
+export const SET_TEST = 'SET_TEST'

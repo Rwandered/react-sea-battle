@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeHeader, setHit, setStatus} from "../../redux/actions/actionCreators";
+import {changeHeader, setFollowing, setHit, setStatus} from "../../redux/actions/actionCreators";
 import cn from "classnames";
 import s from './Cell.module.scss'
+import {setComputerShot} from "../../redux/actions/actionCreatorsPC";
 
-const Cell = ( { isPc, cellId }) => {
+const Cell = ( { cellId }) => {
 
-  console.log('CELL')
+  console.log('CELL render')
 
   const [isMiss, setMiss] = useState(false)
+
   const dispatch = useDispatch()
+
   const { ships, shipCount } = useSelector(state => state.game)
 
   const isHit = useSelector( state => {
@@ -21,33 +24,52 @@ const Cell = ( { isPc, cellId }) => {
     }
   })
 
+  const computerShips = useSelector( state => {
+    return state.computer.ships
+  })
+
   const isDead = useSelector( state => {
       const { ships } = state.game
       const ship = ships.find( ship => ship.location.includes(cellId))
       return ship && ship.dead
   })
 
+
   useEffect(() => {
     if(shipCount === 0) {
-      dispatch(changeHeader('Game end!'))
+      dispatch(changeHeader('You win!'))
     }
   }, [shipCount])
 
 
   const handleCellClick = (event) => {
     event.stopPropagation()
+    const cellId = event.target.dataset.id
 
-    if(isPc) {
-      const cellId = event.target.dataset.id
+    if(!shipCount) return
+    if(isMiss) return
+    setMiss(!isMiss)
+    dispatch( setStatus('shot') )
 
-      if(!shipCount) return
-      if(isMiss) return
-
-      setMiss(!isMiss)
-      dispatch( setStatus('shot') )
-      dispatch( setHit(ships, shipCount, cellId) )
+    const res = dispatch( setHit(ships, shipCount, cellId) )
+    console.log('res: ', res)
+    if(!res) {
+      dispatch(setFollowing('Computer'))
+      setShotPc(computerShips)
     }
   }
+
+
+  const setShotPc = (computerShips) => {
+    setTimeout(() => {
+      const  res = dispatch( setComputerShot(computerShips) )
+      if(res) {
+        return setShotPc(computerShips)
+      }
+    }, 500)
+
+  }
+
 
 
   return (

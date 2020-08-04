@@ -1,19 +1,14 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import Field from "../Field/Field";
-import s from './BattleField.module.scss';
+import s from "../../BattleField/BattleField.module.scss";
+import ComputerField from "../ComputerField/ComputerField";
 import {useSelector} from "react-redux";
 
-
-const BattleField = ( { nickname, isPc } ) => {
+const ComputerBattleField = ( {nickname} ) => {
 
   const following  = useSelector(state => {
     const { following } = state.game
-    return following === 'User'
+    return following === 'Computer'
   })
-
-  const { ships: computerShips } = useSelector( state => state.computer )
-  // console.log('computerShips: ', computerShips)
 
   return (
     <div className={ s.battleField__body }>
@@ -23,16 +18,11 @@ const BattleField = ( { nickname, isPc } ) => {
       </p>
       <table className={ s.battleField__body__enemy }>
         <tbody>
-          <Field computerShips={computerShips}/>
+        <ComputerField/>
         </tbody>
       </table>
     </div>
   )
 }
 
-BattleField.proptype = {
-  nickname: PropTypes.string.isRequired
-}
-
-export default BattleField
-
+export default ComputerBattleField
