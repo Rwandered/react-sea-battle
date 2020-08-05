@@ -126,7 +126,6 @@ export const setHit = ( ships , shipCount, id ) => {
         dispatch( setStatus('hit') )
 
         if(!hit.includes('')) {
-
           newShip.dead = true
           newShips[shipIndex] = newShip
           dispatch( setShipDead(newShips) )

@@ -77,7 +77,6 @@ export const setShip = (ships) => {
 }
 
 export const setShipOptions = (ships, shipsEx) => {
-  // console.log('МАССИВ ЯЧЕЕК КОТОРЫЕ ДОЛЖНЫ БЫТЬ КОРАБЛИКАМИ: ', shipsEx)
 
   return (dispatch) => {
     if(ships.length > 0) {
@@ -96,7 +95,8 @@ export const setShipOptions = (ships, shipsEx) => {
 }
 
 
-export const setComputerShot = ( ships ) => {
+export const setComputerShot = (ships) => {
+
   const id = getRandomId()
   if(isUsedId.includes(id) && isUsedId.length < 100 ) {
     return setComputerShot(ships)
@@ -107,7 +107,6 @@ export const setComputerShot = ( ships ) => {
     const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива кораблей, где есть наш
     // случайный элемент - по которому будет стрелять пк
     // если такой корабль есть то услвоие ниже, если нет - то блок else и состояни в isMiss
-
     if(ship) {
       const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // нужный индекс объекта из массива
       const partOfShip = ship.location.indexOf(id)

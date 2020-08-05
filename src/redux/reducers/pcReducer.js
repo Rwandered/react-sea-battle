@@ -1,6 +1,6 @@
 import {
   RESET_PC,
-  SET_PC_SETTINGS, SET_PC_SHIP_MINUS_COUNT, SET_PC_SHOT_DEAD, SET_PC_SHOT_MISS, SET_SHIP, SET_TEST,
+  SET_PC_SETTINGS, SET_PC_SHIP_MINUS_COUNT, SET_PC_SHOT_DEAD, SET_PC_SHOT_MISS, SET_SHIP,
 } from "../actions/actionPcTypes";
 import {computer} from "../../constants/constants";
 import {SET_PC_SHOT} from "../actions/actionPcTypes";
@@ -26,9 +26,6 @@ const pcReducer = (state= initialState, {type, payload}) => {
       return  {...state, ships: payload.ships, isDead: {...state.isDead, ...payload.cell}}
     case SET_PC_SHOT_MISS:
       return {...state, isMiss: {...state.isMiss, ...payload } }
-    case SET_TEST:
-      const t = 3
-      return {...state, test: 3}
     default:
       return state
   }

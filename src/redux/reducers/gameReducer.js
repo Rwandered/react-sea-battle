@@ -2,7 +2,6 @@ import {
   RESET_GAME, SET_BLOCK,
   SET_FOLLOWING,
   SET_GAME, SET_LOST_STATUS,
-  SET_SHIP_DEAD,
   SET_SHOT,
   SET_SHOT_MINUS_COUNT
 } from "../actions/actionTypes";

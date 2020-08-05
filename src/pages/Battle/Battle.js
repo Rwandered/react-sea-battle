@@ -12,15 +12,17 @@ import {setPcSettings} from "../../redux/actions/actionCreatorsPC";
 import s from './Battle.module.scss'
 
 
+
 const Battle = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { userName, pcName } = useSelector( state => state.auth)
   const { ships }  = useSelector(state => state.game)
 
+
   const genShip = () => {
-      const ships = gameOptions.generateShips()
-      const computerShips = gameOptions.generateShips()
+      const ships = gameOptions.generateShips('user')
+      const computerShips = gameOptions.generateShips('computer')
       ships && dispatch( setGame({ships: ships, shipCount: ships.length}))
       computerShips && dispatch( setPcSettings({ships: computerShips, shipCount: computerShips.length}))
     return {
@@ -31,9 +33,8 @@ const Battle = () => {
 
 
   useEffect(() => {
-    // console.log('GEN SHIP')
     if (ships.length === 0) {
-      const gen = genShip()
+      genShip()
     }
   }, [])
 

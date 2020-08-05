@@ -21,6 +21,9 @@ export const computer = {
 
 export const isUsedId = []
 
+export const privateUserLocation = []
+export const privateComputerLocation = []
+
 //
 // ships: [
 //   {

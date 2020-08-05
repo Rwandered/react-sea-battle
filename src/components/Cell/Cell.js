@@ -41,33 +41,29 @@ const Cell = ( { cellId }) => {
   const handleCellClick = (event) => {
     event.stopPropagation()
     if(isLost || isBlock || !shipCount || isMiss) return
-    // if(isLost) return // если игрок проиграл то тут клик недоступен
-    // if(isBlock) return // если ходит комьютер то тут клик недоступен
-    //
-    //
-    // if(!shipCount) return // если подстрерил все корабли противника - то больше не ходишь
-    // if(isMiss) return // запрет на клик по ячейкам
+    // если игрок проиграл то тут клик недоступен
+    // если ходит комьютер то тут клик недоступен
+    // если подстрерил все корабли противника - то больше не ходишь
+    // запрет на клик по ячейкам
     setMiss(!isMiss)
     const cellId = event.target.dataset.id
     dispatch( setStatus('shot') ) // изменить кол-во выстрелов
-    //
-    const res = dispatch( setHit(ships, shipCount, cellId) ) // отправляем данные в store для смены состояния, в
-    // случае если попали в кораблик
-
-    //  когда попали в кораблик, снова остается ход у игрока
-    // если не попали - то условие ниже
+    const res = dispatch( setHit(ships, shipCount, cellId) )
+    // отправляем данные в store для смены состояния, в случае если попали в кораблик
+    // //  когда попали в кораблик, снова остается ход у игрока
+    // // если не попали - то условие ниже
     if(!res) {
-      dispatch(setFollowing('Computer')) // поменяем состояние в сторе для того - чей ход и запустим ход компьютера
+      dispatch(setFollowing('Computer')) // поменяем состояние в сторе на того - чей ход
       dispatch( setBlock() ) //заблокируем клики по ячейке
       setShotPc(computerShips, computerShipCount) // запустим ход компьютера
     }
   }
 
 
-  const setShotPc = (computerShips, computerShipCount) => {
+  const setShotPc = (computerShips) => {
     setTimeout(() => {
-      const  res = dispatch( setComputerShot(computerShips) )
-      if(res && computerShipCount > 0) {
+      const res = dispatch( setComputerShot(computerShips) )
+      if(res) {
         return setShotPc(computerShips)
       }
     }, 300)

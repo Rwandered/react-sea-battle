@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeHeader, setBlock, setLostStatus} from "../../../redux/actions/actionCreators";
+import {changeHeader, setLostStatus} from "../../../redux/actions/actionCreators";
 import cn from "classnames";
 import s from '../../Cell/Cell.module.scss'
 import {setShipOptions} from "../../../redux/actions/actionCreatorsPC";
@@ -11,21 +11,26 @@ const ComputerCell = ( { cellId }) => {
   const dispatch = useDispatch()
   const { ships, shipCount, isShip: shipEx } = useSelector(state => state.computer)
 
-  // const isHit = useSelector( state => {
-  //   const hit = state.computer.isHit
-  //   if(cellId in hit) {
-  //     return true
-  //   }
-  // })
-
   const isHit = useSelector( state => {
-    const { ships } = state.computer
-    const ship = ships.find( ship => ship.location.includes(cellId))
-    if (ship) {
-      const partOfShip = ship.location.indexOf(cellId)
-      return ship.hit[partOfShip]
+    const hit = state.computer.isHit
+    if(cellId in hit) {
+      return true
     }
   })
+
+  const isMiss = useSelector( state => {
+    const miss = state.computer.isMiss
+    return cellId in miss
+  })
+
+  // const isHit = useSelector( state => {
+  //   const { ships } = state.computer
+  //   const ship = ships.find( ship => ship.location.includes(cellId))
+  //   if (ship) {
+  //     const partOfShip = ship.location.indexOf(cellId)
+  //     return ship.hit[partOfShip]
+  //   }
+  // })
 
   // const isDead = useSelector( state => {
   //   const { ships } = state.computer
@@ -45,10 +50,7 @@ const ComputerCell = ( { cellId }) => {
   })
 
 
-  const isMiss = useSelector( state => {
-    const miss = state.computer.isMiss
-    return cellId in miss
-  })
+
 
   const isShip = useSelector( state => {
     const {isShip, isDead, isHit} = state.computer

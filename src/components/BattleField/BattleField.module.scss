@@ -15,6 +15,12 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
+
+  span {
+    font-weight: bold;
+    //font-size: 1rem;
+    color: red;
+  }
 }
 .battleField__shield {
   //margin: -10px;
