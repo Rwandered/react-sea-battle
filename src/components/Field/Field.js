@@ -4,7 +4,7 @@ import Cell from "../Cell/Cell";
 
 
 
-const Field = ({ computerShips }) => {
+const Field = () => {
 
   return (
     <>
@@ -16,7 +16,6 @@ const Field = ({ computerShips }) => {
                   <Cell
                     key={''+index+cellIndex}
                     cellId={index+ '' + cellIndex}
-                    computerShips={computerShips}
                   />
                 ))
               }

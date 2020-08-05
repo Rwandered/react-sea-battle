@@ -9,12 +9,15 @@ const ComputerBattleField = ( {nickname} ) => {
     const { following } = state.game
     return following === 'Computer'
   })
+  // console.log('FOLLOWING: ', following)
+
+
 
   return (
     <div className={ s.battleField__body }>
       <p className={ s.battleField__nickname}>
         { nickname }
-        <span> { following ? 'Ваш ход' : '' } </span>
+        <span> { following ? 'Ходит компьютер' : '' } </span>
       </p>
       <table className={ s.battleField__body__enemy }>
         <tbody>

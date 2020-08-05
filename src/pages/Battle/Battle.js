@@ -13,6 +13,7 @@ import s from './Battle.module.scss'
 
 
 const Battle = () => {
+  console.log('BATTLE')
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -21,18 +22,23 @@ const Battle = () => {
 
 
   const genShip = () => {
-    // setTimeout(() => {
       const ships = gameOptions.generateShips()
       const computerShips = gameOptions.generateShips()
       ships && dispatch( setGame({ships: ships, shipCount: ships.length}))
       computerShips && dispatch( setPcSettings({ships: computerShips, shipCount: computerShips.length}))
-    // }, 0)
+    return {
+      ships,
+      computerShips
+    }
   }
 
 
   useEffect(() => {
-    console.log('GEN SHIP')
-    genShip()
+    // console.log('GEN SHIP')
+    if (ships.length === 0) {
+      const gen = genShip()
+      console.log('GENERATION end: ', gen)
+    }
   }, [])
 
 

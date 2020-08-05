@@ -3,15 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeHeader} from "../../../redux/actions/actionCreators";
 import cn from "classnames";
 import s from '../../Cell/Cell.module.scss'
-import {setShipOptions} from "../../../redux/actions/actionCreatorsPC";
+import {setComputerShot, setShipOptions} from "../../../redux/actions/actionCreatorsPC";
 
 
 const ComputerCell = ( { cellId }) => {
 
-
-  const { ships, shipCount, isShip: shipEx } = useSelector(state => state.computer)
   const dispatch = useDispatch()
-
+  const { ships, shipCount, isShip: shipEx } = useSelector(state => state.computer)
 
   const isHit = useSelector( state => {
     const hit = state.computer.isHit
@@ -37,32 +35,36 @@ const ComputerCell = ( { cellId }) => {
   })
 
   const isShip = useSelector( state => {
-    const ship = state.computer.isShip
-    return ship.includes(cellId)
+    const {isShip, isDead, isHit} = state.computer
+    if(cellId in isHit) {
+      return false
+    } else if (cellId in isDead) {
+      return false
+    }
+
+    return isShip.includes(cellId)
   })
 
 
   useEffect(() => {
     if(shipCount === 0) {
-      dispatch(changeHeader('You lost!'))
+      dispatch(changeHeader('You lost!')) // сменим состояние header компонента при проигрыше игрока
     }
-  }, [])
-
-  useEffect(() => {
-    // тут надо вызвать метод в актион креатор , который бы определил является ли ячейка частью кораблика
-    ships && dispatch( setShipOptions(ships, shipEx))
+    if(ships.length > 0) {
+      dispatch( setShipOptions(ships, shipEx) ) //который бы определил является ли ячейка частью кораблика
+    }
   }, [])
 
 
   return (
     <td
       className={ cn(
-        { [s.cell_ship]: isShip },
         { [s.cell_miss]: isMiss },
         { [s.cell_hit]: isHit },
         { [s.cell_dead]: isDead },
+        { [s.cell_ship]: isShip },
       )}
-      data-id={cellId}l
+      data-id={cellId}
     />
   )
 }

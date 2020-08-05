@@ -1,7 +1,7 @@
 import {
-  CHANGE_HEADER, RESET_GAME, RESET_PC, RESET_STATUS,
-  SET_AUTH, SET_FOLLOWING, SET_GAME,
-  SET_OPPONENT, SET_PC_SETTINGS, SET_PC_SHOT, SET_SHOT, SET_SHOT_MINUS_COUNT,
+  CHANGE_HEADER, RESET_GAME, RESET_STATUS, RESET_STORE,
+  SET_AUTH, SET_BLOCK, SET_FOLLOWING, SET_GAME,
+  SET_OPPONENT, SET_SHOT, SET_SHOT_MINUS_COUNT,
   SET_STATUS,
   SET_USER
 } from "./actionTypes";
@@ -92,10 +92,18 @@ export const setFollowing = (howIsFollowing) => {
   }
 }
 
+export const setBlock = () => ({
+  type: SET_BLOCK
+})
+
+export const resetStore = () => ({
+  type:RESET_STORE
+})
+
 export const setHit = ( ships , shipCount, id ) => {
 
   return (dispatch) => {
-    // console.log('shipCount: ', shipCount)
+
     const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива
     const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // нужный индекс объекта из массива
 
@@ -123,8 +131,6 @@ export const setHit = ( ships , shipCount, id ) => {
         }
       }
       return true
-    } else {
-
     }
     return false
   }

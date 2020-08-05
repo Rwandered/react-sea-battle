@@ -1,5 +1,5 @@
 import {
-  RESET_GAME,
+  RESET_GAME, SET_BLOCK,
   SET_FOLLOWING,
   SET_GAME,
   SET_SHIP_DEAD,
@@ -13,6 +13,8 @@ const gameReducer = (state= initialState, {type, payload}) => {
    switch (type) {
     case SET_GAME:
       return {...state, ...payload}
+      case SET_BLOCK:
+       return { ...state, isBlock: !state.isBlock,}
     case SET_SHOT:
       return { ...state, ships: payload }
     case SET_SHOT_MINUS_COUNT:

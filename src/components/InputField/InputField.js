@@ -1,17 +1,12 @@
-import React, {useReducer, useState} from "react";
+import React, {useReducer} from "react";
 import s from './InputField.module.scss'
 import Control from "../Contol/Control";
 import { useDispatch } from "react-redux";
-import { setAuth } from "../../redux/actions/actionCreators";
+import {changeHeader, setAuth} from "../../redux/actions/actionCreators";
 import { useHistory } from "react-router";
 
 
 const InputField = () => {
-
-  // const [inpValue, setInpValue] = useState({
-  //   userName: '',
-  //   pcName: ''
-  // })
 
   const [inpValue, setInpValue] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -21,8 +16,8 @@ const InputField = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-
   const handlerSubmitForm = (event) => {
+    // console.log('ПРОИЗОШЛО СОБЫТИЕ ОТПРАВКИ ФОРМЫ')
     event.preventDefault()
 
     dispatch( setAuth( {
@@ -30,12 +25,13 @@ const InputField = () => {
       pcName: inpValue['pcName']
     }))
 
+    dispatch(changeHeader('To Battle!'))
+
     history.push('/')
   }
 
   const handlerInputChange = (event) => {
     const { name, value } = event.target
-    // setInpValue({ ...inpValue, [name]: value} // для useState
     setInpValue({ [name]: value })
   }
 

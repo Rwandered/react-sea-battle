@@ -6,6 +6,7 @@ export const game = {
   ships: [],
   shipCount: 0,
   following: 'User',
+  isBlock: false,
 }
 
 export const computer = {
@@ -15,7 +16,6 @@ export const computer = {
   isMiss: {},
   isHit: {},
   isDead: {},
-  test: 0
 }
 
 export const isUsedId = []

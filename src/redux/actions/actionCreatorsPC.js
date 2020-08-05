@@ -7,7 +7,7 @@ import {
   SET_PC_SHOT_MISS, SET_SHIP
 } from "./actionPcTypes";
 import {isUsedId} from "../../constants/constants";
-import {setFollowing} from "./actionCreators";
+import {setBlock, setFollowing} from "./actionCreators";
 
 export const setPcSettings = (pcOptions) => {
   return {
@@ -77,22 +77,20 @@ export const setShip = (ships) => {
 }
 
 export const setShipOptions = (ships, shipsEx) => {
-  console.log('shipsEx: ', shipsEx)
+  // console.log('МАССИВ ЯЧЕЕК КОТОРЫЕ ДОЛЖНЫ БЫТЬ КОРАБЛИКАМИ: ', shipsEx)
 
   return (dispatch) => {
-    if(ships) {
-      let fff = []
-      console.log('ships: ', ships)
-
-      // ;[...ships].forEach((ship) => {
-      //   ship.location.forEach( coordinate => {
-      //     if (!shipsEx.includes(coordinate)) {
-      //       fff.push(coordinate)
-      //     }
-      //   })
-      // })
-      // console.log('fff: ', fff)
-      // dispatch( setShip(fff) )
+    if(ships.length > 0) {
+      if(shipsEx.length === 0) {
+        let shipCells = []
+        const newShips = [...ships]
+        newShips.forEach( (ship) => {
+          ship.location.forEach( coordinate => {
+            shipCells.push(coordinate)
+          })
+        })
+        dispatch( setShip(shipCells) )
+      }
     }
   }
 }
@@ -105,34 +103,37 @@ export const setComputerShot = ( ships ) => {
     return setComputerShot(ships)
   }
 
-  // console.log('SHIPS GEN: ', ships)
   return (dispatch) => {
 
+    // console.log('ПЕРЕДАННЫЕ КОРАБЛИ ДЛЯ ФОРМИРОВАНИЯ ВЫСТРЕЛОВ НА ПОЛЕ ПК: ', ships)
+
     isUsedId.push(id)
-    const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива
+    // console.log('ВЫБРАННАЯ ЯЧЕЙКА КОМПЬЮТЕРОМ: ', id)
+    const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива кораблей, где есть наш
+    // случайный элемент - по которому будет стрелять пк
+    // если такой корабль есть то услвоие ниже, если нет - то блок else и состояни в isMiss
 
     if(ship) {
-      // dispatch( setTest() )
-      // console.log('ПОПАДАНИЕ')
+      // console.warn('КОМПЬЮТЕР ПОПАЛ')
+
       const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // нужный индекс объекта из массива
       const partOfShip = ship.location.indexOf(id)
       if(partOfShip >= 0) {
         const hit = [...ship.hit]
-        console.log('HITTTTT: ', hit)
+        // console.log('HITTTTT: ', hit)
         hit[partOfShip] = true
         const newShip = { ...ship, hit}
-        console.log('newShip: ', newShip)
+        // console.log('newShip: ', newShip)
         const newShips = [...ships]
         newShips[shipIndex] = newShip
-        console.log('newShips: ', newShips)
+        // console.log('newShips: ', newShips)
 
         dispatch( setPcShot(newShips, {[id]: true}) )
-        dispatch( setTest())
 
         // console.log('HITTTTT: ', hit)
 
         if(!hit.includes('')) {
-          console.log('УБИТ')
+          // console.log('КОМПЬЮТЕР УБИЛ')
           newShip.dead = true
           console.log('newShip: ', newShip)
           newShips[shipIndex] = newShip
@@ -142,9 +143,10 @@ export const setComputerShot = ( ships ) => {
       }
       return true
     } else {
-      // console.log('Мимо')
-      dispatch( setPcShipMiss({[id]: true}) )
-      dispatch( setFollowing('User') )
+      // console.log('КОМПЬЮТЕР МИМО')
+      dispatch( setPcShipMiss({[id]: true}) ) // если пк не попал - меняем состояние на isMiss
+      dispatch( setFollowing('User') ) // передаем ход пользователю
+      dispatch( setBlock() ) //  также разрешаем ход пользователю
       return false
     }
   }

@@ -1,6 +1,10 @@
 export const gameOptions = {
-  shipCount: [1, 1, 1, 0],
-  // shipCount: [1, 1, 2, 3],
+  shipCount: [1, 1, 3, 1],
+  // shipCount: [1, 1, 3, 3],// на такой не работает
+  // shipCount: [1, 2, 3, 2], // не работает
+  // shipCount: [1, 1, 3, 2], // на такой работает !!!приоритет
+  // shipCount: [1, 1, 2, 3], // на такой работает
+  // shipCount: [1, 1, 3, 1], //на такой работает
   shipSize:[4, 3, 2, 1],
   privateLocation: [],
   generateShips() {

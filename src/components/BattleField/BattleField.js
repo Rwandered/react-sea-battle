@@ -12,8 +12,6 @@ const BattleField = ( { nickname} ) => {
     return following === 'User'
   })
 
-  const { ships: computerShips } = useSelector( state => state.computer )
-
   return (
     <div className={ s.battleField__body }>
       <p className={ s.battleField__nickname}>
@@ -22,7 +20,7 @@ const BattleField = ( { nickname} ) => {
       </p>
       <table className={ s.battleField__body__enemy }>
         <tbody>
-          <Field computerShips={computerShips}/>
+          <Field/>
         </tbody>
       </table>
     </div>

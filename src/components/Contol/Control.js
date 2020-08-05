@@ -4,7 +4,7 @@ import cn from 'classnames'
 import s from './Control.module.scss'
 import {useHistory} from "react-router";
 import {useDispatch} from "react-redux";
-import {changeHeader, resetGame, resetStatus} from "../../redux/actions/actionCreators";
+import {changeHeader, resetGame, resetStatus, resetStore} from "../../redux/actions/actionCreators";
 import {resetPc} from "../../redux/actions/actionCreatorsPC";
 
 const Control = ( { value, type = 'button', target } ) => {
@@ -14,13 +14,17 @@ const Control = ( { value, type = 'button', target } ) => {
 
   const handleControlClick = (event) => {
     const { id } = event.target.dataset
+    // console.log('BUTTON ID: ', id)
     switch (id){
       case 'exit':
-        dispatch( resetGame() )
-        dispatch( resetStatus() )
-        dispatch ( changeHeader(''))
-        dispatch( resetPc() )
+        // console.log('BUTTON ID IN EXIT: ', id)
+        // dispatch( resetGame() )
+        // dispatch( resetStatus() )
+        // dispatch ( changeHeader(''))
+        // dispatch( resetPc() )
+        dispatch( resetStore() )
         return history.push('/auth')
+
       // case 'restart':
       //   dispatch( resetGame() )
       //   dispatch( resetStatus() )
@@ -28,6 +32,9 @@ const Control = ( { value, type = 'button', target } ) => {
       //   dispatch( resetPc() )
       //   break
       //   // return history.push('/')
+      case 'battle':
+        // console.log('BUTTON ID IN BATTLE: ', id)
+        break
       default:
         return history.push('/auth')
     }
