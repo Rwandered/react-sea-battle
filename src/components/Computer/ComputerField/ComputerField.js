@@ -1,9 +1,6 @@
-import React, {useEffect} from "react";
+import React  from "react";
 import {field} from "../../../constants/constants";
-
 import ComputerCell from "../ComputerCell/ComputerCell";
-import {setShipOptions} from "../../../redux/actions/actionCreatorsPC";
-import {useDispatch, useSelector} from "react-redux";
 
 
 const ComputerField = () => {

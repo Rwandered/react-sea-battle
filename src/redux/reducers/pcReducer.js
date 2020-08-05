@@ -16,7 +16,7 @@ const pcReducer = (state= initialState, {type, payload}) => {
     case SET_SHIP:
       return {...state, isShip: [...payload ] }
     case SET_PC_SHOT:
-      return {...state, ...payload.ships, isHit: {...state.isHit, ...payload.cell}}
+      return {...state, ships: payload.ships, isHit: {...state.isHit, ...payload.cell}}
     case RESET_PC:
       return {...initialState}
     case SET_PC_SHIP_MINUS_COUNT:

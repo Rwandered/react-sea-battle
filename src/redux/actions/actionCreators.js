@@ -1,6 +1,6 @@
 import {
   CHANGE_HEADER, RESET_GAME, RESET_STATUS, RESET_STORE,
-  SET_AUTH, SET_BLOCK, SET_FOLLOWING, SET_GAME,
+  SET_AUTH, SET_BLOCK, SET_FOLLOWING, SET_GAME, SET_LOST_STATUS,
   SET_OPPONENT, SET_SHOT, SET_SHOT_MINUS_COUNT,
   SET_STATUS,
   SET_USER
@@ -98,6 +98,10 @@ export const setBlock = () => ({
 
 export const resetStore = () => ({
   type:RESET_STORE
+})
+
+export const setLostStatus = () => ({
+  type: SET_LOST_STATUS
 })
 
 export const setHit = ( ships , shipCount, id ) => {

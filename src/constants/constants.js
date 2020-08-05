@@ -7,6 +7,7 @@ export const game = {
   shipCount: 0,
   following: 'User',
   isBlock: false,
+  isLost: false,
 }
 
 export const computer = {

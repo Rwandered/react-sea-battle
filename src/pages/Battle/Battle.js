@@ -13,13 +13,10 @@ import s from './Battle.module.scss'
 
 
 const Battle = () => {
-  console.log('BATTLE')
-
   const dispatch = useDispatch()
   const history = useHistory()
   const { userName, pcName } = useSelector( state => state.auth)
   const { ships }  = useSelector(state => state.game)
-
 
   const genShip = () => {
       const ships = gameOptions.generateShips()
@@ -37,7 +34,6 @@ const Battle = () => {
     // console.log('GEN SHIP')
     if (ships.length === 0) {
       const gen = genShip()
-      console.log('GENERATION end: ', gen)
     }
   }, [])
 

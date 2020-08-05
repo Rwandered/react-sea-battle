@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {changeHeader, setBlock, setFollowing, setHit, setStatus} from "../../redux/actions/actionCreators";
-import cn from "classnames";
 import { setComputerShot } from "../../redux/actions/actionCreatorsPC";
+import cn from "classnames";
 import s from './Cell.module.scss'
 
 
 const Cell = ( { cellId }) => {
-  // console.log('CELL render')
 
   const dispatch = useDispatch()
   const [isMiss, setMiss] = useState(false)
-  const { ships, shipCount, isBlock } = useSelector(state => state.game)
+  const { ships, shipCount, isBlock, isLost } = useSelector(state => state.game)
 
 
   const isHit = useSelector( state => {
@@ -23,7 +22,7 @@ const Cell = ( { cellId }) => {
     }
   })
 
-  const { ships: computerShips } = useSelector(state => state.computer)
+  const { ships: computerShips, shipCount: computerShipCount } = useSelector(state => state.computer)
 
   const isDead = useSelector( state => {
       const { ships } = state.game
@@ -32,22 +31,24 @@ const Cell = ( { cellId }) => {
   })
 
 
-  useEffect(() => {
+  useEffect( () => {
     if(shipCount === 0) {
-      dispatch(changeHeader('You win!'))
+      dispatch(changeHeader('You win!')) // сменим состояние header компонента при проигрыше игрока
     }
-  }, [])
+  }, [shipCount])
 
 
   const handleCellClick = (event) => {
     event.stopPropagation()
-    if(isBlock) return // если ходит комьютер то тут клик недоступен
-    const cellId = event.target.dataset.id
-    // console.log('ВЫБРАННАЯ ЯЧЕЙКА: ', cellId)
-
-    if(!shipCount) return // если подстрерил все корабли противника - то больше не ходишь
-    if(isMiss) return // запрет на клик по ячейкам
+    if(isLost || isBlock || !shipCount || isMiss) return
+    // if(isLost) return // если игрок проиграл то тут клик недоступен
+    // if(isBlock) return // если ходит комьютер то тут клик недоступен
+    //
+    //
+    // if(!shipCount) return // если подстрерил все корабли противника - то больше не ходишь
+    // if(isMiss) return // запрет на клик по ячейкам
     setMiss(!isMiss)
+    const cellId = event.target.dataset.id
     dispatch( setStatus('shot') ) // изменить кол-во выстрелов
     //
     const res = dispatch( setHit(ships, shipCount, cellId) ) // отправляем данные в store для смены состояния, в
@@ -58,18 +59,18 @@ const Cell = ( { cellId }) => {
     if(!res) {
       dispatch(setFollowing('Computer')) // поменяем состояние в сторе для того - чей ход и запустим ход компьютера
       dispatch( setBlock() ) //заблокируем клики по ячейке
-      setShotPc(computerShips) // запустим ход компьютера
+      setShotPc(computerShips, computerShipCount) // запустим ход компьютера
     }
   }
 
 
-  const setShotPc = (computerShips) => {
+  const setShotPc = (computerShips, computerShipCount) => {
     setTimeout(() => {
       const  res = dispatch( setComputerShot(computerShips) )
-      if(res) {
+      if(res && computerShipCount > 0) {
         return setShotPc(computerShips)
       }
-    }, 500)
+    }, 300)
   }
 
 

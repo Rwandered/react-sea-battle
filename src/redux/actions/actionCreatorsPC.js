@@ -97,43 +97,30 @@ export const setShipOptions = (ships, shipsEx) => {
 
 
 export const setComputerShot = ( ships ) => {
-  // id - генерируется случайным образом
-  let id = getRandomId()
-  if(isUsedId.includes(id)) {
+  const id = getRandomId()
+  if(isUsedId.includes(id) && isUsedId.length < 100 ) {
     return setComputerShot(ships)
   }
 
   return (dispatch) => {
-
-    // console.log('ПЕРЕДАННЫЕ КОРАБЛИ ДЛЯ ФОРМИРОВАНИЯ ВЫСТРЕЛОВ НА ПОЛЕ ПК: ', ships)
-
     isUsedId.push(id)
-    // console.log('ВЫБРАННАЯ ЯЧЕЙКА КОМПЬЮТЕРОМ: ', id)
     const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива кораблей, где есть наш
     // случайный элемент - по которому будет стрелять пк
     // если такой корабль есть то услвоие ниже, если нет - то блок else и состояни в isMiss
 
     if(ship) {
-      // console.warn('КОМПЬЮТЕР ПОПАЛ')
-
       const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // нужный индекс объекта из массива
       const partOfShip = ship.location.indexOf(id)
       if(partOfShip >= 0) {
         const hit = [...ship.hit]
-        // console.log('HITTTTT: ', hit)
         hit[partOfShip] = true
         const newShip = { ...ship, hit}
-        // console.log('newShip: ', newShip)
         const newShips = [...ships]
         newShips[shipIndex] = newShip
-        // console.log('newShips: ', newShips)
 
         dispatch( setPcShot(newShips, {[id]: true}) )
 
-        // console.log('HITTTTT: ', hit)
-
         if(!hit.includes('')) {
-          // console.log('КОМПЬЮТЕР УБИЛ')
           newShip.dead = true
           console.log('newShip: ', newShip)
           newShips[shipIndex] = newShip
@@ -143,7 +130,7 @@ export const setComputerShot = ( ships ) => {
       }
       return true
     } else {
-      // console.log('КОМПЬЮТЕР МИМО')
+
       dispatch( setPcShipMiss({[id]: true}) ) // если пк не попал - меняем состояние на isMiss
       dispatch( setFollowing('User') ) // передаем ход пользователю
       dispatch( setBlock() ) //  также разрешаем ход пользователю
