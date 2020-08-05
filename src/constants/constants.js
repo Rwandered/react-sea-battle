@@ -11,8 +11,7 @@ export const game = {
 export const computer = {
   ships: [],
   shipCount: 0,
-  // isUsedId: [],
-  isShip: false,
+  isShip: [],
   isMiss: {},
   isHit: {},
   isDead: {},

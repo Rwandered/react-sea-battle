@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
-import cn from "classnames";
+import React, {useEffect} from "react";
 import {field} from "../../../constants/constants";
-import {useDispatch, useSelector} from "react-redux";
-import {changeHeader} from "../../../redux/actions/actionCreators";
-import s from '../../Cell/Cell.module.scss'
+
 import ComputerCell from "../ComputerCell/ComputerCell";
+import {setShipOptions} from "../../../redux/actions/actionCreatorsPC";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const ComputerField = () => {
+
   return (
     <>
       {

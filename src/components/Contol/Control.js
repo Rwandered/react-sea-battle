@@ -5,6 +5,7 @@ import s from './Control.module.scss'
 import {useHistory} from "react-router";
 import {useDispatch} from "react-redux";
 import {changeHeader, resetGame, resetStatus} from "../../redux/actions/actionCreators";
+import {resetPc} from "../../redux/actions/actionCreatorsPC";
 
 const Control = ( { value, type = 'button', target } ) => {
 
@@ -18,11 +19,15 @@ const Control = ( { value, type = 'button', target } ) => {
         dispatch( resetGame() )
         dispatch( resetStatus() )
         dispatch ( changeHeader(''))
+        dispatch( resetPc() )
         return history.push('/auth')
-      case 'restart':
-        // dispatch( resetGame() )
-        // dispatch( resetStatus() )
-        return history.push('/')
+      // case 'restart':
+      //   dispatch( resetGame() )
+      //   dispatch( resetStatus() )
+      //   dispatch ( changeHeader(''))
+      //   dispatch( resetPc() )
+      //   break
+      //   // return history.push('/')
       default:
         return history.push('/auth')
     }

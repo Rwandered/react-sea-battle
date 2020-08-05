@@ -5,7 +5,7 @@ import s from './BattleField.module.scss';
 import {useSelector} from "react-redux";
 
 
-const BattleField = ( { nickname, isPc } ) => {
+const BattleField = ( { nickname} ) => {
 
   const following  = useSelector(state => {
     const { following } = state.game
@@ -13,7 +13,6 @@ const BattleField = ( { nickname, isPc } ) => {
   })
 
   const { ships: computerShips } = useSelector( state => state.computer )
-  // console.log('computerShips: ', computerShips)
 
   return (
     <div className={ s.battleField__body }>

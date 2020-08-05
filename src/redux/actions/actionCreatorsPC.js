@@ -4,7 +4,7 @@ import {
   SET_PC_SHIP_MINUS_COUNT,
   SET_PC_SHOT,
   SET_PC_SHOT_DEAD,
-  SET_PC_SHOT_MISS
+  SET_PC_SHOT_MISS, SET_SHIP
 } from "./actionPcTypes";
 import {isUsedId} from "../../constants/constants";
 import {setFollowing} from "./actionCreators";
@@ -69,12 +69,34 @@ export const setTest = () => {
 }
 
 
-export const setShip = (ships , shipCount, id) => {
-
-  return (dispatch) => {
-
+export const setShip = (ships) => {
+  return {
+    type: SET_SHIP,
+    payload: ships
   }
 }
+
+export const setShipOptions = (ships, shipsEx) => {
+  console.log('shipsEx: ', shipsEx)
+
+  return (dispatch) => {
+    if(ships) {
+      let fff = []
+      console.log('ships: ', ships)
+
+      // ;[...ships].forEach((ship) => {
+      //   ship.location.forEach( coordinate => {
+      //     if (!shipsEx.includes(coordinate)) {
+      //       fff.push(coordinate)
+      //     }
+      //   })
+      // })
+      // console.log('fff: ', fff)
+      // dispatch( setShip(fff) )
+    }
+  }
+}
+
 
 export const setComputerShot = ( ships ) => {
   // id - генерируется случайным образом
@@ -105,6 +127,7 @@ export const setComputerShot = ( ships ) => {
         console.log('newShips: ', newShips)
 
         dispatch( setPcShot(newShips, {[id]: true}) )
+        dispatch( setTest())
 
         // console.log('HITTTTT: ', hit)
 
@@ -117,8 +140,6 @@ export const setComputerShot = ( ships ) => {
           dispatch( setPcShipMinusCount() )
         }
       }
-      // dispatch( setFollowing('User') ) //по идее тут надо снвоа вызывать этот метод, так как есть попадание
-      // setComputerShot(ships)
       return true
     } else {
       // console.log('Мимо')

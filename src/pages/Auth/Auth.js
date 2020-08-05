@@ -8,9 +8,9 @@ const Auth = () => {
   return (
     <div className={ s.auth__wrapper }>
       <Header title={'Sea Battle'}/>
-      <div className={ s.auth__body}>
+      <>
         <InputField/>
-      </div>
+      </>
     </div>
   )
 }

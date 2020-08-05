@@ -24,9 +24,7 @@ const Cell = ( { cellId }) => {
     }
   })
 
-  const computerShips = useSelector( state => {
-    return state.computer.ships
-  })
+  const { ships: computerShips , shipCount: computerShipCount} = useSelector( state => state.computer )
 
   const isDead = useSelector( state => {
       const { ships } = state.game
@@ -38,8 +36,10 @@ const Cell = ( { cellId }) => {
   useEffect(() => {
     if(shipCount === 0) {
       dispatch(changeHeader('You win!'))
+    } else {
+      dispatch(changeHeader('To Battle!'))
     }
-  }, [shipCount])
+  }, [])
 
 
   const handleCellClick = (event) => {
@@ -60,13 +60,13 @@ const Cell = ( { cellId }) => {
   }
 
 
-  const setShotPc = (computerShips) => {
-    setTimeout(() => {
-      const  res = dispatch( setComputerShot(computerShips) )
+  const setShotPc = (computer) => {
+    // setTimeout(() => {
+      const  res = dispatch( setComputerShot(computer) )
       if(res) {
-        return setShotPc(computerShips)
+        return setShotPc(computer)
       }
-    }, 500)
+    // }, 500)
 
   }
 

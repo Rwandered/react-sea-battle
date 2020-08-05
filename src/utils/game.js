@@ -1,5 +1,6 @@
 export const gameOptions = {
-  shipCount: [1, 0, 0, 0],
+  shipCount: [1, 1, 1, 0],
+  // shipCount: [1, 1, 2, 3],
   shipSize:[4, 3, 2, 1],
   privateLocation: [],
   generateShips() {
@@ -41,11 +42,11 @@ export const gameOptions = {
       ship.hit.push('')
     }
 
-    // if(this.checkPrivateLocation(ship.location)) {
-    //   return this.generateShipOptions(shipSize)
-    // }
-    //
-    // this.addPrivateLocation(ship.location)
+    if(this.checkPrivateLocation(ship.location)) {
+      return this.generateShipOptions(shipSize)
+    }
+
+    this.addPrivateLocation(ship.location)
 
     return ship
   },
