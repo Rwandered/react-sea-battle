@@ -4,6 +4,7 @@ import {
 } from "./actionPcTypes";
 import { isUsedId } from "../../constants/constants";
 import { setBlock, setFollowing } from "./actionCreators";
+import {findNeedShip, generateModifyShipArray} from "../../utils/support";
 
 // set initial settings for pc field
 export const setPcSettings = (pcOptions) => {
@@ -94,21 +95,20 @@ export const setComputerShot = (ships) => {
 
   return (dispatch) => {
     isUsedId.push(id)
-    console.log('SHIPS: ', ships, 'Клик был по : ', id)
-    const ship = ships.find( ship => ship.location.includes(id)) // find need elem from array
-
+    // const ship = ships.find( ship => ship.location.includes(id)) // find need elem from array
+    // const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // find need index for elem from array
+    const { ship, shipIndex } = findNeedShip(ships, id)
     // if ship is true, else state in isMiss
     if(ship) {
-      const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // find need index for elem from array
       const partOfShip = ship.location.indexOf(id)
       if(partOfShip >= 0) {
-        const hit = [...ship.hit]
-        hit[partOfShip] = true
-        const newShip = { ...ship, hit}
-        const newShips = [...ships]
-        newShips[shipIndex] = newShip
+        // const hit = [...ship.hit]
+        // hit[partOfShip] = true
+        // const newShip = { ...ship, hit}
+        // const newShips = [...ships]
+        // newShips[shipIndex] = newShip
+        const {newShips, newShip, hit} = generateModifyShipArray(ship, shipIndex, partOfShip, ships) //create data for new ship
         dispatch( setPcShot(newShips, {[id]: true}) ) // dispatch shot - modify state in store for needed cell
-
         if(!hit.includes('')) {
           newShip.dead = true // set dead status to true
           newShips[shipIndex] = newShip //dispatch dead status for ship - modify state for cell
@@ -116,16 +116,13 @@ export const setComputerShot = (ships) => {
           dispatch( setPcShipMinusCount() )
         }
 
-        console.log('newShips: ', newShips)
         return {res: true, data: newShips}
       }
-      // dispatch( setFollowing('User') ) // switch user
-      // dispatch( setBlock() ) // allow user click
-
     } else {
       dispatch( setPcShipMiss({[id]: true}) ) // if pc is miss - change state on isMiss
       dispatch( setFollowing('User') ) // switch user
       dispatch( setBlock() ) // allow user click
+
       return false
     }
   }

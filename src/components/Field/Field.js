@@ -1,6 +1,7 @@
 import React from "react";
 import {field} from "../../constants/constants";
 import Cell from "../Cell/Cell";
+import withField from "../../HOCS/withField";
 
 
 
@@ -26,4 +27,5 @@ const Field = () => {
   )
 }
 
-export default React.memo(Field)
+export default  React.memo(Field)
+

@@ -9,8 +9,9 @@ import {useHistory} from "react-router";
 import {setGame} from "../../redux/actions/actionCreators";
 import ComputerBattleField from "../../components/Computer/ComputerBattleField/ComputerBattleField";
 import {setPcSettings} from "../../redux/actions/actionCreatorsPC";
-import s from './Battle.module.scss'
 import Spinner from "../../components/Spinner/Spinner";
+import ModalWindow from "../../components/ModalWindow/ModalWindow";
+import s from "./Battle.module.scss";
 
 
 
@@ -20,6 +21,7 @@ const Battle = () => {
   const history = useHistory() // для работы в роутером
   const { userName, pcName } = useSelector( state => state.auth) // вытягиваем данные из store
   const { ships }  = useSelector(state => state.game)
+  const { isModal } = useSelector( state => state.game.modal)
 
 // генерирует расположение кораблей
   const genShip = () => {
@@ -58,6 +60,7 @@ const Battle = () => {
       <div className={s.battle}>
         <ComputerBattleField nickname={ `${pcName} - computer` }/>
         <BattleField nickname={ `${userName} - you` } isPc/>
+        { isModal && <ModalWindow/> }
       </div>
       <div className={s.seaBattle__footer}>
         <Control value={ 'End game' } target={'exit'}/>

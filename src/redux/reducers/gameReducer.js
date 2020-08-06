@@ -1,7 +1,7 @@
 import {
   RESET_GAME, SET_BLOCK,
   SET_FOLLOWING,
-  SET_GAME, SET_LOST_STATUS,
+  SET_GAME, SET_GAME_RESULT, SET_LOST_STATUS,
   SET_SHOT,
   SET_SHOT_MINUS_COUNT
 } from "../actions/actionTypes";
@@ -25,6 +25,8 @@ const gameReducer = (state= initialState, {type, payload}) => {
        return {...state, following: payload}
      case SET_LOST_STATUS:
        return {...state, isLost: true}
+     case SET_GAME_RESULT:
+       return {...state, modal: { isModal: true, value: payload } }
     default:
       return state
   }

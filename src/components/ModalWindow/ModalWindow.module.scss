@@ -1,0 +1,37 @@
+$bg-color: #797272;
+$font-color: #fff;
+
+
+.modal__layer {
+  min-width: 100%;
+  min-height: 100vh;
+  z-index: 999;
+  background-color: rgba(139, 130, 130, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.modal__window {
+  position: relative;
+  margin: 50vh auto;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  background-color: $bg-color;
+  color: $font-color;
+  width: 300px;
+  z-index: 1000;
+  color: red;
+}
+
+.modal__row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .modal__body {
+    font-size: 1.5rem;
+  }
+
+}

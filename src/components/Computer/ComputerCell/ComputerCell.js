@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeHeader, setLostStatus} from "../../../redux/actions/actionCreators";
-import cn from "classnames";
-import s from '../../Cell/Cell.module.scss'
+import {setGameResult, setLostStatus} from "../../../redux/actions/actionCreators";
 import {setShipOptions} from "../../../redux/actions/actionCreatorsPC";
+import withField from "../../../HOCS/withField";
+import cn from "classnames";
+import s from "../../Cell/Cell.module.scss";
 
 
 const ComputerCell = ( { cellId }) => {
@@ -11,18 +12,10 @@ const ComputerCell = ( { cellId }) => {
   const dispatch = useDispatch()
   const { ships, shipCount, isShip: shipEx } = useSelector(state => state.computer)
 
-  // const isHit = useSelector( state => {
-  //   const hit = state.computer.isHit
-  //   if(cellId in hit) {
-  //     return true
-  //   }
-  // })
-
   const isMiss = useSelector( state => {
     const miss = state.computer.isMiss
     return cellId in miss
   })
-
 
   const isHit = useSelector( state => {
     const { ships } = state.computer
@@ -38,17 +31,6 @@ const ComputerCell = ( { cellId }) => {
     const ship = ships.find( ship => ship.location.includes(cellId))
     return ship && ship.dead
   })
-
-  // const isDead = useSelector( state => {
-  //   const { ships } = state.computer
-  //   const dead = state.computer.isDead
-  //   const ship = ships.find( ship => ship.location.includes(cellId))
-  //   if(ship) {
-  //     if(cellId in dead) {
-  //       return ship.dead
-  //     }
-  //   }
-  // })
 
   const isShip = useSelector( state => {
     const {isShip, isDead, isHit} = state.computer
@@ -71,7 +53,7 @@ const ComputerCell = ( { cellId }) => {
   useEffect( () => {
     if(shipCount === 0) {
       dispatch( setLostStatus() ) // установим для игрока lost status
-      dispatch(changeHeader('You lost!')) // сменим состояние header компонента при проигрыше игрока
+      dispatch(setGameResult('You lost!')) // сменим состояние header компонента при проигрыше игрока
     }
   }, [shipCount])
 
@@ -89,4 +71,5 @@ const ComputerCell = ( { cellId }) => {
   )
 }
 
-export default ComputerCell
+export default withField( React.memo(ComputerCell) )
+// export default React.memo(ComputerCell)

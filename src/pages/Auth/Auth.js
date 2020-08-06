@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import InputField from "../../components/InputField/InputField";
-import s from './Auth.module.scss'
+import s from "./Auth.module.scss";
 
 
 const Auth = () => {

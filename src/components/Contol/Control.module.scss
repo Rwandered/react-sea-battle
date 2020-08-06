@@ -1,6 +1,5 @@
 .control {
   position: relative;
-  //width: 300px;
   height: 60px;
   text-align: center;
   line-height: 60px;
@@ -15,11 +14,6 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: calc(16px + 4 * ((100vw - 320px) / (1920 - 320)));
-
-  &_sub {
-    margin-right: 20px;
-  }
-
 }
 .control:hover {
   color: #000;

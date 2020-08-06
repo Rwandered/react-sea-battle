@@ -10,6 +10,7 @@ export const game = {
   following: 'User',
   isBlock: false,
   isLost: false,
+  modal: { value: '', isModal: false}
 }
 
 //начальное состояние поля компьютера

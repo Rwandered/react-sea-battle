@@ -1,6 +1,6 @@
 import React from "react";
-import s from './StatusField.module.scss'
 import {useSelector} from "react-redux";
+import s from "./StatusField.module.scss"
 
 const StatusField = () => {
 

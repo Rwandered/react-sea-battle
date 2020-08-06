@@ -1,9 +1,17 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector, useStore} from "react-redux";
-import {changeHeader, setBlock, setFollowing, setHit, setStatus} from "../../redux/actions/actionCreators";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  setBlock,
+  setFollowing,
+  setGameResult,
+  setHit,
+  setStatus
+} from "../../redux/actions/actionCreators";
 import { setComputerShot } from "../../redux/actions/actionCreatorsPC";
 import cn from "classnames";
-import s from './Cell.module.scss'
+import withField from "../../HOCS/withField";
+import s from "./Cell.module.scss";
+
 
 
 const Cell = ( { cellId }) => {
@@ -11,9 +19,6 @@ const Cell = ( { cellId }) => {
   const dispatch = useDispatch()
   const [isMiss, setMiss] = useState(false)
   const { ships, shipCount, isBlock, isLost } = useSelector(state => state.game)
-
-  const store = useStore()
-
 
   const isHit = useSelector( state => {
     const { ships } = state.game
@@ -35,7 +40,7 @@ const Cell = ( { cellId }) => {
 
   useEffect( () => {
     if(shipCount === 0) {
-      dispatch(changeHeader('You win!')) // сменим состояние header компонента при проигрыше игрока
+      dispatch(setGameResult('You win!')) // выведем модальное окно что игрок победил
     }
   }, [shipCount])
 
@@ -63,7 +68,7 @@ const Cell = ( { cellId }) => {
 
 
   const setShotPc = (computerShips, computerShipCount) => {
-    // с небольшой задержкой повторный ход компьютера
+    // с небольшой задержкой ход компьютера, чтобы увидеть, что ход пк
    setTimeout( () => {
      const { res, data } = dispatch( setComputerShot(computerShips) )
      if(res && computerShipCount !== 0) {
@@ -87,4 +92,4 @@ const Cell = ( { cellId }) => {
   )
 }
 
-export default Cell
+export default withField( React.memo(Cell) )

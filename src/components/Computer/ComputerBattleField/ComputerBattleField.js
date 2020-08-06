@@ -1,7 +1,7 @@
 import React from "react";
-import s from "../../BattleField/BattleField.module.scss";
-import ComputerField from "../ComputerField/ComputerField";
 import {useSelector} from "react-redux";
+import ComputerCell from "../ComputerCell/ComputerCell";
+import s from "../../BattleField/BattleField.module.scss";
 
 const ComputerBattleField = ( {nickname} ) => {
 
@@ -19,7 +19,7 @@ const ComputerBattleField = ( {nickname} ) => {
       </p>
       <table className={ s.battleField__body__enemy }>
         <tbody>
-        <ComputerField/>
+        <ComputerCell/>
         </tbody>
       </table>
     </div>

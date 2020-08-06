@@ -1,8 +1,10 @@
 import {
   CHANGE_HEADER, RESET_GAME, RESET_STATUS, RESET_STORE,
-  SET_AUTH, SET_BLOCK, SET_FOLLOWING, SET_GAME, SET_LOST_STATUS,
+  SET_AUTH, SET_BLOCK, SET_FOLLOWING, SET_GAME, SET_GAME_RESULT, SET_LOST_STATUS,
   SET_OPPONENT, SET_SHOT, SET_SHOT_MINUS_COUNT,
-  SET_STATUS, SET_USER } from "./actionTypes";
+  SET_STATUS, SET_USER
+} from "./actionTypes";
+import {findNeedShip, generateModifyShipArray} from "../../utils/support";
 
 
 //==========================auth action
@@ -111,24 +113,22 @@ export const setLostStatus = () => ({
   type: SET_LOST_STATUS
 })
 
+//view modal window
+export const setGameResult = (value) => ({
+  type: SET_GAME_RESULT,
+  payload: value
+})
+
 // set hit for ships
 export const setHit = ( ships , shipCount, id ) => {
 
   return (dispatch) => {
-
-    const ship = ships.find( ship => ship.location.includes(id)) // find need elem from array
-    const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // find need index for elem from array
-
+    const { ship, shipIndex } = findNeedShip(ships, id)
     // if ship is true
     if(ship) {
-
       const partOfShip = ship.location.indexOf(id) //get position for id from ship location
       if(partOfShip >= 0) {
-        const hit = [...ship.hit] // create hit from ship hit
-        hit[partOfShip] = true // change hit status on true
-        const newShip = { ...ship, hit} // create new ship with new hit
-        const newShips = [...ships] // create new ships
-        newShips[shipIndex] = newShip
+        const {newShips, newShip, hit} = generateModifyShipArray(ship, shipIndex, partOfShip, ships) //create data for new ship
 
         dispatch( setShot(newShips) ) // dispatch shot - modify state in store for needed cell
         dispatch( setStatus('hit') ) // dispatch new status to modify status component`s state

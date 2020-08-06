@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import Field from "../Field/Field";
-import s from './BattleField.module.scss';
+import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
+import Cell from "../Cell/Cell";
+import s from "./BattleField.module.scss";
 
 
 const BattleField = ( { nickname} ) => {
@@ -21,7 +21,7 @@ const BattleField = ( { nickname} ) => {
       </p>
       <table className={ s.battleField__body__enemy }>
         <tbody>
-          <Field/>
+          <Cell/>
         </tbody>
       </table>
     </div>

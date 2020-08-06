@@ -1,9 +1,9 @@
 import React, {useReducer} from "react";
-import s from './InputField.module.scss'
 import Control from "../Contol/Control";
 import { useDispatch } from "react-redux";
 import {changeHeader, setAuth} from "../../redux/actions/actionCreators";
 import { useHistory } from "react-router";
+import s from "./InputField.module.scss";
 
 
 const InputField = () => {
