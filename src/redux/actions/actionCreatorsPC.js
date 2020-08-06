@@ -1,14 +1,11 @@
 import {
-  RESET_PC, SET_ID,
-  SET_PC_SETTINGS,
-  SET_PC_SHIP_MINUS_COUNT,
-  SET_PC_SHOT,
-  SET_PC_SHOT_DEAD,
-  SET_PC_SHOT_MISS, SET_SHIP
+  RESET_PC, SET_PC_SETTINGS, SET_PC_SHIP_MINUS_COUNT,
+  SET_PC_SHOT, SET_PC_SHOT_DEAD, SET_PC_SHOT_MISS, SET_SHIP
 } from "./actionPcTypes";
-import {isUsedId} from "../../constants/constants";
-import {setBlock, setFollowing} from "./actionCreators";
+import { isUsedId } from "../../constants/constants";
+import { setBlock, setFollowing } from "./actionCreators";
 
+// set initial settings for pc field
 export const setPcSettings = (pcOptions) => {
   return {
     type: SET_PC_SETTINGS,
@@ -16,12 +13,14 @@ export const setPcSettings = (pcOptions) => {
   }
 }
 
+//reset pc field
 export const resetPc = () => {
   return {
     type: RESET_PC
   }
 }
 
+//make shot
 export const setPcShot = (ships, cell) => {
   return {
     type: SET_PC_SHOT,
@@ -32,6 +31,7 @@ export const setPcShot = (ships, cell) => {
   }
 }
 
+//set pc ship dead status
 export const setPcShipDead = (ships, cell) => {
   return {
     type: SET_PC_SHOT_DEAD,
@@ -48,6 +48,7 @@ export const setPcShipMinusCount = () => {
   }
 }
 
+// set pc cell miss status
 export const setPcShipMiss = (cell) => {
   return {
     type: SET_PC_SHOT_MISS,
@@ -55,20 +56,7 @@ export const setPcShipMiss = (cell) => {
   }
 }
 
-export const setId = (id) => {
-  return {
-    type: SET_ID,
-    payload: id
-  }
-}
-
-export const setTest = () => {
-  return {
-    type: SET_ID,
-  }
-}
-
-
+//set for cell from pc field ship svg
 export const setShip = (ships) => {
   return {
     type: SET_SHIP,
@@ -76,6 +64,7 @@ export const setShip = (ships) => {
   }
 }
 
+//set ship status for field` cells
 export const setShipOptions = (ships, shipsEx) => {
 
   return (dispatch) => {
@@ -88,15 +77,16 @@ export const setShipOptions = (ships, shipsEx) => {
             shipCells.push(coordinate)
           })
         })
-        dispatch( setShip(shipCells) )
+        dispatch( setShip(shipCells) ) //set ship status through redux store
       }
     }
   }
 }
 
-
+//set shot position for pc field
 export const setComputerShot = (ships) => {
 
+  //gen unique id
   const id = getRandomId()
   if(isUsedId.includes(id) && isUsedId.length < 100 ) {
     return setComputerShot(ships)
@@ -104,11 +94,11 @@ export const setComputerShot = (ships) => {
 
   return (dispatch) => {
     isUsedId.push(id)
-    const ship = ships.find( ship => ship.location.includes(id)) // нужный объект из массива кораблей, где есть наш
-    // случайный элемент - по которому будет стрелять пк
-    // если такой корабль есть то услвоие ниже, если нет - то блок else и состояни в isMiss
+    const ship = ships.find( ship => ship.location.includes(id)) // find need elem from array
+
+    // if ship is true, else state in isMiss
     if(ship) {
-      const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // нужный индекс объекта из массива
+      const shipIndex = ships.findIndex( ship => ship.location.includes(id)) // find need index for elem from array
       const partOfShip = ship.location.indexOf(id)
       if(partOfShip >= 0) {
         const hit = [...ship.hit]
@@ -116,26 +106,25 @@ export const setComputerShot = (ships) => {
         const newShip = { ...ship, hit}
         const newShips = [...ships]
         newShips[shipIndex] = newShip
-
-        dispatch( setPcShot(newShips, {[id]: true}) )
+        dispatch( setPcShot(newShips, {[id]: true}) ) // dispatch shot - modify state in store for needed cell
 
         if(!hit.includes('')) {
-          newShip.dead = true
-          console.log('newShip: ', newShip)
-          newShips[shipIndex] = newShip
-          dispatch( setPcShipDead(newShips, {[id]: true}) )
+          newShip.dead = true // set dead status to true
+          newShips[shipIndex] = newShip //dispatch dead status for ship - modify state for cell
+          dispatch( setPcShipDead(newShips, {[id]: true}) ) // dispatch new status to modify status component`s state
           dispatch( setPcShipMinusCount() )
         }
       }
       return true
     } else {
-
-      dispatch( setPcShipMiss({[id]: true}) ) // если пк не попал - меняем состояние на isMiss
-      dispatch( setFollowing('User') ) // передаем ход пользователю
-      dispatch( setBlock() ) //  также разрешаем ход пользователю
+      dispatch( setPcShipMiss({[id]: true}) ) // if pc is miss - change state on isMiss
+      dispatch( setFollowing('User') ) // switch user
+      dispatch( setBlock() ) // allow user click
       return false
     }
   }
 }
 
+
+//gen random id from pc field
 const getRandomId = () => Math.floor(Math.random() * 10) + '' + Math.floor(Math.random() * 10)

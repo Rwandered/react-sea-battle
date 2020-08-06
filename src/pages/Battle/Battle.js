@@ -14,15 +14,17 @@ import s from './Battle.module.scss'
 
 
 const Battle = () => {
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const { userName, pcName } = useSelector( state => state.auth)
+
+  const dispatch = useDispatch() //вызываем хук для получения dispatch из store
+  const history = useHistory() // для работы в роутером
+  const { userName, pcName } = useSelector( state => state.auth) // вытягиваем данные из store
   const { ships }  = useSelector(state => state.game)
 
-
+// генерирует расположение кораблей
   const genShip = () => {
-      const ships = gameOptions.generateShips('user')
-      const computerShips = gameOptions.generateShips('computer')
+      const ships = gameOptions.generateShips('user') // для пользователя
+      const computerShips = gameOptions.generateShips('computer') // для компьютера
+      //отправляем сгенерированные данные к store
       ships && dispatch( setGame({ships: ships, shipCount: ships.length}))
       computerShips && dispatch( setPcSettings({ships: computerShips, shipCount: computerShips.length}))
     return {
@@ -32,19 +34,20 @@ const Battle = () => {
   }
 
 
-  useEffect(() => {
+  useEffect(() => { // при рендере компонента, будет происходит генерация кораблей, если их нет в store
     if (ships.length === 0) {
       genShip()
     }
   }, [])
 
-
+  // если пользователей нет - редирект на auth component
   if(!userName) {
     history.push('/auth')
   }
 
+  // заглушка если корабли не расстановлены
   if(!ships.length) {
-    return <h1>Идет расстановка кораблей....</h1>
+    return <h2>Идет расстановка кораблей....</h2>
   }
 
   return (

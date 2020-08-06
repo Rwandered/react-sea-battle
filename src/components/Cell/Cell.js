@@ -60,11 +60,11 @@ const Cell = ( { cellId }) => {
   }
 
 
-  const setShotPc = (computerShips) => {
+  const setShotPc = (computerShips, computerShipCount) => {
     setTimeout(() => {
       const res = dispatch( setComputerShot(computerShips) )
-      if(res) {
-        return setShotPc(computerShips)
+      if(res && computerShipCount !== 0) {
+        return setShotPc(computerShips, computerShipCount)
       }
     }, 300)
   }

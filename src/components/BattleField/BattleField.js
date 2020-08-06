@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 
 const BattleField = ( { nickname} ) => {
 
+  // забираем из стора данные о том, кто ходит следующий
   const following  = useSelector(state => {
     const { following } = state.game
     return following === 'User'

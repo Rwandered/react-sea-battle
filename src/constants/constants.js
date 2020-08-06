@@ -1,7 +1,9 @@
+// шаблон игрового поля
 export const field = new Array(10).fill(
   new Array(10).fill('')
 )
 
+// начальное состояние поля игрока
 export const game = {
   ships: [],
   shipCount: 0,
@@ -10,6 +12,7 @@ export const game = {
   isLost: false,
 }
 
+//начальное состояние поля компьютера
 export const computer = {
   ships: [],
   shipCount: 0,
@@ -23,28 +26,3 @@ export const isUsedId = []
 
 export const privateUserLocation = []
 export const privateComputerLocation = []
-
-//
-// ships: [
-//   {
-//     location: ['26', '36', '46', '56'],
-//     hit: ['', '', '', ''],
-//     dead: false
-//   },
-//   {
-//     location: ['11', '12', '13'],
-//     hit: ['', '', ''],
-//     dead: false
-//   },
-//   {
-//     location: ['69', '79'],
-//     hit: ['', ''],
-//     dead: false
-//   },
-//   {
-//     location: ['99'],
-//     hit: [''],
-//     dead: false
-//   }
-// ],
-//   shipCount: 4,

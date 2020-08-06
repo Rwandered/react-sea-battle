@@ -16,7 +16,7 @@ const Control = ( { value, type = 'button', target } ) => {
     const { id } = event.target.dataset
     switch (id){
       case 'exit':
-        dispatch( resetStore() )
+        dispatch( resetStore() ) // очистим store и обнулим константы, вернемся на auth component
         privateComputerLocation.length = 0
         privateUserLocation.length = 0
         return history.push('/auth')

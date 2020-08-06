@@ -7,7 +7,7 @@ export const store = createStore(
   rootReducer,
   applyMiddleware(
     logger,
-    thunk
+    thunk,
   )
 )
 

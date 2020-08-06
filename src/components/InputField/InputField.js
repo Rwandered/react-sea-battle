@@ -17,9 +17,9 @@ const InputField = () => {
   const history = useHistory()
 
   const handlerSubmitForm = (event) => {
-    // console.log('ПРОИЗОШЛО СОБЫТИЕ ОТПРАВКИ ФОРМЫ')
     event.preventDefault()
 
+    // отправим данные о пользователях в store
     dispatch( setAuth( {
       userName: inpValue['userName'],
       pcName: inpValue['pcName']
@@ -45,12 +45,14 @@ const InputField = () => {
         value={ inpValue['userName'] }
         onChange={ handlerInputChange }
         name={'userName'}
+        required={true}
         placeholder={'Your name'}
       />
       <input
         value={ inpValue['pcName'] }
         onChange={ handlerInputChange }
         name={'pcName'}
+        required={true}
         placeholder={'Opponent name'}
       />
       <Control

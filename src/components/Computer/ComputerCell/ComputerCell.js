@@ -11,26 +11,33 @@ const ComputerCell = ( { cellId }) => {
   const dispatch = useDispatch()
   const { ships, shipCount, isShip: shipEx } = useSelector(state => state.computer)
 
-  const isHit = useSelector( state => {
-    const hit = state.computer.isHit
-    if(cellId in hit) {
-      return true
-    }
-  })
+  // const isHit = useSelector( state => {
+  //   const hit = state.computer.isHit
+  //   if(cellId in hit) {
+  //     return true
+  //   }
+  // })
 
   const isMiss = useSelector( state => {
     const miss = state.computer.isMiss
     return cellId in miss
   })
 
-  // const isHit = useSelector( state => {
-  //   const { ships } = state.computer
-  //   const ship = ships.find( ship => ship.location.includes(cellId))
-  //   if (ship) {
-  //     const partOfShip = ship.location.indexOf(cellId)
-  //     return ship.hit[partOfShip]
-  //   }
-  // })
+
+  const isHit = useSelector( state => {
+    const { ships } = state.computer
+    const ship = ships.find( ship => ship.location.includes(cellId))
+    if (ship) {
+      const partOfShip = ship.location.indexOf(cellId)
+      return ship.hit[partOfShip]
+    }
+  })
+
+  const isDead = useSelector( state => {
+    const { ships } = state.computer
+    const ship = ships.find( ship => ship.location.includes(cellId))
+    return ship && ship.dead
+  })
 
   // const isDead = useSelector( state => {
   //   const { ships } = state.computer
@@ -42,15 +49,6 @@ const ComputerCell = ( { cellId }) => {
   //     }
   //   }
   // })
-
-  const isDead = useSelector( state => {
-    const { ships } = state.computer
-    const ship = ships.find( ship => ship.location.includes(cellId))
-    return ship && ship.dead
-  })
-
-
-
 
   const isShip = useSelector( state => {
     const {isShip, isDead, isHit} = state.computer
@@ -65,7 +63,6 @@ const ComputerCell = ( { cellId }) => {
 
 
   useEffect(() => {
-
     if(ships.length > 0) {
       dispatch( setShipOptions(ships, shipEx) ) //который бы определил является ли ячейка частью кораблика
     }
@@ -73,7 +70,7 @@ const ComputerCell = ( { cellId }) => {
 
   useEffect( () => {
     if(shipCount === 0) {
-      dispatch( setLostStatus() )
+      dispatch( setLostStatus() ) // установим для игрока lost status
       dispatch(changeHeader('You lost!')) // сменим состояние header компонента при проигрыше игрока
     }
   }, [shipCount])

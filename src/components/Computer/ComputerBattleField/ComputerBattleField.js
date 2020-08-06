@@ -9,8 +9,6 @@ const ComputerBattleField = ( {nickname} ) => {
     const { following } = state.game
     return following === 'Computer'
   })
-  // console.log('FOLLOWING: ', following)
-
 
 
   return (
