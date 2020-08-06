@@ -94,6 +94,7 @@ export const setComputerShot = (ships) => {
 
   return (dispatch) => {
     isUsedId.push(id)
+    console.log('SHIPS: ', ships, 'Клик был по : ', id)
     const ship = ships.find( ship => ship.location.includes(id)) // find need elem from array
 
     // if ship is true, else state in isMiss
@@ -114,8 +115,13 @@ export const setComputerShot = (ships) => {
           dispatch( setPcShipDead(newShips, {[id]: true}) ) // dispatch new status to modify status component`s state
           dispatch( setPcShipMinusCount() )
         }
+
+        console.log('newShips: ', newShips)
+        return {res: true, data: newShips}
       }
-      return true
+      // dispatch( setFollowing('User') ) // switch user
+      // dispatch( setBlock() ) // allow user click
+
     } else {
       dispatch( setPcShipMiss({[id]: true}) ) // if pc is miss - change state on isMiss
       dispatch( setFollowing('User') ) // switch user

@@ -10,6 +10,7 @@ import {setGame} from "../../redux/actions/actionCreators";
 import ComputerBattleField from "../../components/Computer/ComputerBattleField/ComputerBattleField";
 import {setPcSettings} from "../../redux/actions/actionCreatorsPC";
 import s from './Battle.module.scss'
+import Spinner from "../../components/Spinner/Spinner";
 
 
 
@@ -36,7 +37,7 @@ const Battle = () => {
 
   useEffect(() => { // при рендере компонента, будет происходит генерация кораблей, если их нет в store
     if (ships.length === 0) {
-      genShip()
+        genShip()
     }
   }, [])
 
@@ -47,7 +48,7 @@ const Battle = () => {
 
   // заглушка если корабли не расстановлены
   if(!ships.length) {
-    return <h2>Идет расстановка кораблей....</h2>
+    return <Spinner/>
   }
 
   return (

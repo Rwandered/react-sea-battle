@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector, useStore} from "react-redux";
 import {changeHeader, setBlock, setFollowing, setHit, setStatus} from "../../redux/actions/actionCreators";
 import { setComputerShot } from "../../redux/actions/actionCreatorsPC";
 import cn from "classnames";
@@ -11,6 +11,8 @@ const Cell = ( { cellId }) => {
   const dispatch = useDispatch()
   const [isMiss, setMiss] = useState(false)
   const { ships, shipCount, isBlock, isLost } = useSelector(state => state.game)
+
+  const store = useStore()
 
 
   const isHit = useSelector( state => {
@@ -61,12 +63,13 @@ const Cell = ( { cellId }) => {
 
 
   const setShotPc = (computerShips, computerShipCount) => {
-    setTimeout(() => {
-      const res = dispatch( setComputerShot(computerShips) )
-      if(res && computerShipCount !== 0) {
-        return setShotPc(computerShips, computerShipCount)
-      }
-    }, 300)
+    // с небольшой задержкой повторный ход компьютера
+   setTimeout( () => {
+     const { res, data } = dispatch( setComputerShot(computerShips) )
+     if(res && computerShipCount !== 0) {
+       return setShotPc(data)
+     }
+   }, 300)
   }
 
 
