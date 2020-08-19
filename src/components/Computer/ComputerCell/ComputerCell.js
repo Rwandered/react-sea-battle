@@ -48,6 +48,7 @@ const ComputerCell = ( { cellId }) => {
     if(ships.length > 0) {
       dispatch( setShipOptions(ships, shipEx) ) //который бы определил является ли ячейка частью кораблика
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect( () => {
@@ -55,6 +56,7 @@ const ComputerCell = ( { cellId }) => {
       dispatch( setLostStatus() ) // установим для игрока lost status
       dispatch(setGameResult('You lost!')) // сменим состояние header компонента при проигрыше игрока
     }
+    // eslint-disable-next-line
   }, [shipCount])
 
 

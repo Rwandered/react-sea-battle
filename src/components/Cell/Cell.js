@@ -42,6 +42,7 @@ const Cell = ( { cellId }) => {
     if(shipCount === 0) {
       dispatch(setGameResult('You win!')) // выведем модальное окно что игрок победил
     }
+    // eslint-disable-next-line
   }, [shipCount])
 
 

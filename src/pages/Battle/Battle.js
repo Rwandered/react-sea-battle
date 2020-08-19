@@ -41,6 +41,7 @@ const Battle = () => {
     if (ships.length === 0) {
         genShip()
     }
+    // eslint-disable-next-line
   }, [])
 
   // если пользователей нет - редирект на auth component
